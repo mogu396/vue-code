@@ -1,0 +1,6 @@
+@url= https://cnodejs.org/api/v1/ 
+###
+GET {{url}}topics
+
+###
+get {{url}}topics
