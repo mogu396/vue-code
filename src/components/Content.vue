@@ -12,11 +12,11 @@
       <!-- 标签 -->
       <span
         :class="[
-          item.top === true || item.tab === 'good'
+          item.top === true || item.good === true
             ? 'topic-topAndGood-tag'
             : 'topic-else-tag',
         ]"
-        >{{ listTagComputed(item.top, item.tab) }}</span
+        >{{ listTagComputed(item.top, item.tab,item.good) }}</span
       >
       <span class="title">{{ item.title }}</span>
 
@@ -37,19 +37,19 @@ export default {
   },
   props: ["contentList"],
   methods: {
-    listTagComputed(top, tab) {
+    listTagComputed(top, tab,good) {
       // console.log(this);
       // console.log(top,tab);
       if (top === true) {
         return "置顶";
       } else {
-        if (tab === "ask") {
+        if (tab === "ask"&&good===false) {
           return "问答";
-        } else if (tab === "share") {
+        } else if (tab === "share"&&good===false) {
           return "分享";
-        } else if (tab === "job") {
+        } else if (tab === "job"&&good===false) {
           return "招聘";
-        } else if (tab === "good") {
+        } else if (good === true) {
           return "精华";
         }
       }

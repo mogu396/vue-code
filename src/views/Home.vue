@@ -47,6 +47,9 @@ export default {
   methods: {
     changeTab(tab, event) {
       console.log(tab, event);
+      // console.log(this.tab);
+      this.tab=tab.name
+      this.getTopicsContent();
     },
     getTopicsContent() {
       getTopics({
