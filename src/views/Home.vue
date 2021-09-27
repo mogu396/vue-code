@@ -4,7 +4,6 @@
       <el-tabs v-model="activeTab" @tab-click="changeTab">
         <el-tab-pane label="全部" name="all" class="myTabPane">
           <Content :contentList="contentList" />
-          <button @click="sendTest">123</button>
         </el-tab-pane>
         <el-tab-pane label="精华" name="good" class="myTabPane">
           <Content :contentList="contentList" />
@@ -28,13 +27,20 @@
 // import HelloWorld from '@/components/HelloWorld.vue'
 
 import Content from "../components/Content.vue";
-import "../utils/http.js"
+import { getTopics } from "../utils/api.js";
 export default {
   name: "Home",
   components: { Content },
   data() {
     return {
+      // page是页数，这里显示第一页的内容
+      page: 1,
+      // 这里的tab，为all显示所有，good显示精华，类推
+      tab: "all",
+      // limit为一页显示的内容条数
+      limit: 25,
       activeTab: "all",
+      // 将请求回来的数据，传入Content组件
       contentList: [],
     };
   },
@@ -42,10 +48,21 @@ export default {
     changeTab(tab, event) {
       console.log(tab, event);
     },
-    sendTest(){
-      
-    }
-
+    getTopicsContent() {
+      getTopics({
+        page: this.page,
+        limit: this.limit,
+        tab: this.tab,
+      }).then((res) => {
+        // console.log(res.data)
+        this.contentList = res.data;
+      });
+    },
+  },
+  mounted() {
+    // console.log(this);
+    // console.log(this.getTopicsContent())
+    this.getTopicsContent();
   },
 };
 </script>
@@ -67,9 +84,21 @@ export default {
 }
 
 .home {
-  display: flex;
+  /* display: flex;
   width: 60%;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 20px; */
+
+  width: 1000px;
+  height: 50px;
+  margin: 0 auto;
+  margin-top: 10px;
+}
+
+.content {
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 1px 1px 6px rgb(0 0 0 / 20%);
+  border-radius: 5px;
 }
 </style>
