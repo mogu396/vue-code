@@ -1,13 +1,17 @@
 <template>
   <!-- 主题内容 -->
-  <div>
+  <div class="content">
     <div class="topics-content" v-for="item in contentList.data" :key="item.id">
-      <img :src="item.author.avatar_url" alt="用户头像" />
+      <router-link :to="{path:`/user/${item.author.loginname}`}">
+        <img :src="item.author.avatar_url" alt="用户头像" :title='item.author.loginname' />
+      </router-link>
       <!-- 回复相关数据 -->
       <span class="count-property">
-        <em class="count-of-replies">{{ item.reply_count }}</em>
+        <em class="count-of-replies" title="回复数">{{ item.reply_count }}</em>
         <span class="count-of-seperator">/</span>
-        <span class="count-of-visits">{{ item.visit_count }}</span>
+        <span class="count-of-visits" title="点击数">{{
+          item.visit_count
+        }}</span>
       </span>
       <!-- 标签 -->
       <span
@@ -16,16 +20,19 @@
             ? 'topic-topAndGood-tag'
             : 'topic-else-tag',
         ]"
-        >{{ listTagComputed(item.top, item.tab,item.good) }}</span
+        >{{ listTagComputed(item.top, item.tab, item.good) }}</span
       >
       <span class="title">{{ item.title }}</span>
 
       <span class="latest-reply-time">{{
-        $dayjs().diff(item.last_reply_at, 'day')>=1?
-        $dayjs().diff(item.last_reply_at, 'day') + '天前':
-        '1天前'
+        $dayjs().diff(item.last_reply_at, "day") >= 1
+          ? $dayjs().diff(item.last_reply_at, "day") + "天前"
+          : "1天前"
       }}</span>
     </div>
+    <div class="pagination">
+
+  </div>
   </div>
 </template>
 
@@ -35,37 +42,41 @@ export default {
   data() {
     return {};
   },
-  props: ["contentList"],
+  props: ["contentList","page"],
   methods: {
-    listTagComputed(top, tab,good) {
+    listTagComputed(top, tab, good) {
       // console.log(this);
       // console.log(top,tab);
       if (top === true) {
         return "置顶";
       } else {
-        if (tab === "ask"&&good===false) {
+        if (tab === "ask" && good === false) {
           return "问答";
-        } else if (tab === "share"&&good===false) {
+        } else if (tab === "share" && good === false) {
           return "分享";
-        } else if (tab === "job"&&good===false) {
+        } else if (tab === "job" && good === false) {
           return "招聘";
         } else if (good === true) {
           return "精华";
         }
       }
-    },
+    }, 
   },
 };
 </script>
 
 <style scoped>
+.content{
+  position: relative;
+}
+
 .topics-content {
   position: relative;
   margin-bottom: 5px;
   border-bottom: 1px solid rgba(0, 0, 0, 5%);
 }
 
-.topics-content > img {
+.topics-content img {
   width: 30px;
   height: 30px;
 }
@@ -73,7 +84,7 @@ export default {
 /* 人数模块布局 */
 .count-property {
   display: inline-block;
-  width: 75px;
+  width: 100px;
   height: 29px;
   text-align: center;
 }
@@ -146,7 +157,8 @@ export default {
 .latest-reply-time {
   position: absolute;
   float: right;
-  top:20%;
+  top: 20%;
   right: 3%;
 }
+
 </style>

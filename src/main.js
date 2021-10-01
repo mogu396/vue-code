@@ -3,11 +3,13 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import dayjs from 'dayjs'
-import { TabPane ,Tabs} from 'element-ui'
+import './assets/iconfont/iconfont.css'
+import { TabPane ,Tabs, Pagination} from 'element-ui'
 
 
 Vue.use(TabPane)
 Vue.use(Tabs)
+Vue.use(Pagination)
 Vue.prototype.$dayjs = dayjs;
 Vue.config.productionTip = false
 
