@@ -19,25 +19,53 @@
             </div>
           </div>
           <span id="regist-time"
-            >注册时间:{{
-              $dayjs().diff(user.data.create_at, "day") >= 1
-                ? $dayjs().diff(user.data.create_at, "day") + "天前"
-                : "1天前"
-            }}
+            >注册时间:{{ registTime(user.data.create_at) }}
           </span>
         </div>
       </div>
-      <div class="recent-createTopics panel">recentCreate</div>
-      <div class="recent-joinTopics panel">recentJoin</div>
+      <div class="recent-createTopics panel" v-if="user">
+        <div class="header">最近参与的话题</div>
+        <div
+          class="topics-list"
+          v-for="topic in user.data.recent_topics.slice(0, 5)"
+          :key="topic.id"
+        >
+          <div class="topics-panel">
+            <img :src="user.data.avatar_url" alt="用户头像" />
+            <span id="topic-title">{{ topic.title }}</span>
+          </div>
+        </div>
+        <div class="look-more">查看更多>></div>
+      </div>
+      <div class="recent-joinTopics panel" v-if="user">
+        <div class="header">最近参与话题</div>
+        <div
+          class="replies-list"
+          v-for="replies in user.data.recent_replies.slice(0, 5)"
+          :key="replies.id"
+        >
+          <div class="replies-panel">
+            <img :src="user.data.avatar_url" alt="用户头像" />
+            <span id="replices-title">{{ replies.title }}</span>
+          </div>
+        </div>
+        <div class="look-more">查看更多>></div>
+      </div>
     </div>
-    <!-- <div class="side-bar">
-      <div class="personInfo u-1of3">personInfo</div>
-    </div> -->
+    <div class="side-bar">
+      <div class="person-info panel">
+        <div class="header">个人信息</div>
+        <div class="person-info-panel">
+          123
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import { getUserDetail } from "../../utils/api";
+import { dayComputed } from "../../utils/utils";
 export default {
   name: "HomePage",
   props: ["loginname"],
@@ -51,9 +79,14 @@ export default {
       getUserDetail(loginname).then((res) => {
         this.user = res.data;
         console.log("getuser", this.user);
+        console.log(this.user.data.recent_topics);
       });
     },
+    registTime(createAt) {
+      return dayComputed(createAt);
+    },
   },
+
   created() {
     this.getUserDetailFun(this.loginname);
   },
@@ -64,37 +97,45 @@ export default {
 .user-detail {
   width: 80%;
   margin: 0 auto;
+  position: relative;
 }
 
-.user-profile{
-  color:#778087
+.user-profile {
+  color: #778087;
 }
-.user-profile a{
+.user-profile a {
   text-decoration: underline;
 }
 
 .content {
-  margin-right: 305px;
+  float: left;
+  width: 70%;
 }
 
 .panel {
   background-color: #f6f6f6;
   box-shadow: 1px 1px 6px rgb(0 0 0 / 20%);
-  margin-bottom: 50px;
+  margin-bottom: 25px;
   border-radius: 5px;
+}
+
+.header {
+  padding: 10px;
+  background-color: #e1e1e1;
+}
+
+.look-more {
+  padding: 10px;
 }
 
 /* 用户主页 */
 .home-page {
   /* border: 1px solid black; */
 }
-.home-page .header {
-  padding: 10px;
-  background-color: #e1e1e1;
-}
+
 .home-page img {
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
 }
 .home-page a {
   color: #778087;
@@ -106,11 +147,57 @@ export default {
 }
 #regist-time {
   color: #ababab;
-  font-size: 12px;
+  font-size: 14px;
 }
 .user-info {
   padding: 10px;
+  border-top: 1px solid #e5e5e5;
 }
 
 /* 用户最近创建话题 */
+.recent-createTopics img {
+  width: 40px;
+  height: 40px;
+}
+.topics-panel {
+  padding: 10px;
+  border-top: 1px solid #e5e5e5;
+}
+
+#topic-title {
+  display: inline-block;
+  margin-left: 5px;
+  /* width: 70%; */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 最近参与话题 */
+.recent-joinTopics img {
+  width: 40px;
+  height: 40px;
+}
+
+.replies-panel {
+  padding: 10px;
+  border-top: 1px solid #e5e5e5;
+}
+
+#replices-title {
+  display: inline-block;
+  margin-left: 5px;
+  /* width: 70%; */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 侧边栏 */
+.side-bar {
+  position: absolute;
+  width: 20%;
+  right: 0px;
+  top: 0px;
+}
 </style>

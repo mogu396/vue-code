@@ -2,8 +2,12 @@
   <!-- 主题内容 -->
   <div class="content">
     <div class="topics-content" v-for="item in contentList.data" :key="item.id">
-      <router-link :to="{path:`/user/${item.author.loginname}`}">
-        <img :src="item.author.avatar_url" alt="用户头像" :title='item.author.loginname' />
+      <router-link :to="{ path: `/user/${item.author.loginname}` }">
+        <img
+          :src="item.author.avatar_url"
+          alt="用户头像"
+          :title="item.author.loginname"
+        />
       </router-link>
       <!-- 回复相关数据 -->
       <span class="count-property">
@@ -14,37 +18,33 @@
         }}</span>
       </span>
       <!-- 标签 -->
-      <span
-        :class="[
-          item.top === true || item.good === true
-            ? 'topic-topAndGood-tag'
-            : 'topic-else-tag',
-        ]"
-        >{{ listTagComputed(item.top, item.tab, item.good) }}</span
-      >
-      <span class="title">{{ item.title }}</span>
-
-      <span class="latest-reply-time">{{
-        $dayjs().diff(item.last_reply_at, "day") >= 1
-          ? $dayjs().diff(item.last_reply_at, "day") + "天前"
-          : "1天前"
-      }}</span>
+        <span
+          :class="[
+            item.top === true || item.good === true
+              ? 'topic-topAndGood-tag'
+              : 'topic-else-tag',
+          ]"
+          >{{ listTabComputed(item.top, item.tab, item.good) }}</span
+        >
+      <router-link :to="{path:`/topics/${item.id}`}" class="title">
+        {{ item.title }}
+      </router-link>
+      <span class="latest-reply-time">{{ replyTime(item.last_reply_at) }}</span>
     </div>
-    <div class="pagination">
-
-  </div>
+    <div class="pagination"></div>
   </div>
 </template>
 
 <script>
+import { dayComputed } from "../utils/utils";
 export default {
   name: "Content",
   data() {
     return {};
   },
-  props: ["contentList","page"],
+  props: ["contentList", "page"],
   methods: {
-    listTagComputed(top, tab, good) {
+    listTabComputed(top, tab, good) {
       // console.log(this);
       // console.log(top,tab);
       if (top === true) {
@@ -60,13 +60,16 @@ export default {
           return "精华";
         }
       }
-    }, 
+    },
+    replyTime(lastReply) {
+      return dayComputed(lastReply);
+    },
   },
 };
 </script>
 
 <style scoped>
-.content{
+.content {
   position: relative;
 }
 
@@ -145,12 +148,18 @@ export default {
 
 /* 标题 */
 .title {
+  color: #333;
   display: inline-block;
   margin-left: 5px;
   width: 70%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.title:visited{
+  color: #888;
+}.title:hover{
+  text-decoration: underline;
 }
 
 /* 日期 */
@@ -160,5 +169,4 @@ export default {
   top: 20%;
   right: 3%;
 }
-
 </style>

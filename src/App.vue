@@ -9,13 +9,11 @@
 import NavBar from "./components/NavBar.vue";
 export default {
   components: {
-    NavBar
+    NavBar,
   },
-  data(){
-    return{
-      
-    }
-  }
+  data() {
+    return {};
+  },
 };
 </script>
 
@@ -25,11 +23,11 @@ export default {
   padding: 0;
 }
 
-body{
+body {
   background-color: #e1e1e1;
 }
 
-a{
+a {
   text-decoration: none;
 }
 

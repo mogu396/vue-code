@@ -13,7 +13,7 @@ function getTopics(data){
 // data是用户id
 function getTopicDetail(data){
     return request({
-        url:'/topics/'+data,
+        url:'/topic/'+data,
         method:'get'
     })
 }

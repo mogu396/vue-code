@@ -25,7 +25,7 @@ export default {
 
 <style scoped>
   .user-home{
-    margin-top: 10px;
+    margin-top: 15px;
     
   }
 </style>
