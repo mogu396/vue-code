@@ -94,9 +94,7 @@ export default {
       }
     },
   },
-  mounted() {
-    // console.log(this);
-    // console.log(this.getTopicsContent())
+  created() {
     this.getTopicsContent();
   },
 };
@@ -119,7 +117,7 @@ export default {
 }
 
 .home {
-  width: 1000px;
+  width: 1210px;
   height: 50px;
   margin: 0 auto;
   margin-top: 15px;

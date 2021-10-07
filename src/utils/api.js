@@ -10,7 +10,7 @@ function getTopics(data){
     })
 }
 
-// data是用户id
+// data是文章id
 function getTopicDetail(data){
     return request({
         url:'/topic/'+data,

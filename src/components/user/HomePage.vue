@@ -24,7 +24,7 @@
         </div>
       </div>
       <div class="recent-createTopics panel" v-if="user">
-        <div class="header">最近参与的话题</div>
+        <div class="header">最近创建的话题</div>
         <div
           class="topics-list"
           v-for="topic in user.data.recent_topics.slice(0, 5)"
@@ -32,7 +32,9 @@
         >
           <div class="topics-panel">
             <img :src="user.data.avatar_url" alt="用户头像" />
-            <span id="topic-title">{{ topic.title }}</span>
+            <router-link :to="{path:`/topics/${topic.id}`}">
+               <span id="topic-title">{{ topic.title }}</span>
+            </router-link>
           </div>
         </div>
         <div class="look-more">查看更多>></div>
@@ -46,7 +48,9 @@
         >
           <div class="replies-panel">
             <img :src="user.data.avatar_url" alt="用户头像" />
+            <router-link :to="{path:`/topics/${replies.id}`}">
             <span id="replices-title">{{ replies.title }}</span>
+            </router-link>
           </div>
         </div>
         <div class="look-more">查看更多>></div>
@@ -55,9 +59,7 @@
     <div class="side-bar">
       <div class="person-info panel">
         <div class="header">个人信息</div>
-        <div class="person-info-panel">
-          123
-        </div>
+        <div class="person-info-panel">123</div>
       </div>
     </div>
   </div>
@@ -95,8 +97,6 @@ export default {
 
 <style scoped>
 .user-detail {
-  width: 80%;
-  margin: 0 auto;
   position: relative;
 }
 
@@ -193,11 +193,14 @@ export default {
   text-overflow: ellipsis;
 }
 
+.recent-createTopics a,.recent-joinTopics a{
+  color: #333;
+}
+
 /* 侧边栏 */
 .side-bar {
-  position: absolute;
-  width: 20%;
-  right: 0px;
-  top: 0px;
+  float: left;
+  width: 25%;
+  margin-left: 30px;
 }
 </style>

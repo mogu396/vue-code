@@ -30,7 +30,7 @@ export default {
   overflow: hidden;
 }
 .nav > .nav-container {
-  width: 85%;
+  width: 1210px;
   margin: 0 auto;
 }
 .nav-container > .logo {

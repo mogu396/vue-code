@@ -25,6 +25,7 @@ export default {
 
 body {
   background-color: #e1e1e1;
+  color: #333;
 }
 
 a {
