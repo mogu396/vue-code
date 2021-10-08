@@ -12,6 +12,10 @@
       </router-link>
       <span class="reply-time">{{ index + 1 }}楼·{{replyTime(item.create_at)}}</span>
       <div class="reply-content" v-html="item.content"></div>
+      <div class="like">
+        <i class="iconfont icon-good"></i>
+        <span class="like-count">{{item.ups.length}}</span>
+      </div>
     </div>
   </div>
 </template>
@@ -30,7 +34,7 @@ export default {
       replyTime(time){
           return dayComputed(time)
       }
-  },
+  }
 };
 </script>
 
@@ -50,6 +54,7 @@ export default {
 .reply-item {
   border-top: 1px solid #e5e5e5;
   padding: 10px 0;
+  position: relative;
 }
 
 .reply-item img {
@@ -76,6 +81,21 @@ export default {
 
 .reply-content .markdown-text p{
   margin: 0 !important;
+}
+
+/* 点赞 */
+
+.reply-item .like{
+  position: absolute;
+  width: 50px;
+  top: 0;
+  right: 0;
+  text-align: center;
+}
+
+.reply-item .like .like-count{
+  font-weight: 200;
+  padding-left: 5px;
 }
 
 /* .reply-item .reply-content{

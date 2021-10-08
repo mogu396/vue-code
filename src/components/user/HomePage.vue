@@ -7,8 +7,8 @@
           <img :src="user.data.avatar_url" alt="用户头像" />
           <span id="user-loginName">{{ user.data.loginname }}</span>
           <div class="user-profile">
-            <div>积分:{{ user.data.score }}</div>
-            <div>
+            <div class="point">积分:{{ user.data.score }}</div>
+            <div class="github-location">
               Github:
               <a
                 :href="'http://www.github.com/' + user.data.githubUsername"
@@ -18,7 +18,7 @@
               </a>
             </div>
           </div>
-          <span id="regist-time"
+          <span class="regist-time"
             >注册时间:{{ registTime(user.data.create_at) }}
           </span>
         </div>
@@ -32,8 +32,8 @@
         >
           <div class="topics-panel">
             <img :src="user.data.avatar_url" alt="用户头像" />
-            <router-link :to="{path:`/topics/${topic.id}`}">
-               <span id="topic-title">{{ topic.title }}</span>
+            <router-link :to="{ path: `/topics/${topic.id}` }">
+              <span id="topic-title">{{ topic.title }}</span>
             </router-link>
           </div>
         </div>
@@ -48,8 +48,8 @@
         >
           <div class="replies-panel">
             <img :src="user.data.avatar_url" alt="用户头像" />
-            <router-link :to="{path:`/topics/${replies.id}`}">
-            <span id="replices-title">{{ replies.title }}</span>
+            <router-link :to="{ path: `/topics/${replies.id}` }">
+              <span id="replices-title">{{ replies.title }}</span>
             </router-link>
           </div>
         </div>
@@ -57,9 +57,16 @@
       </div>
     </div>
     <div class="side-bar">
-      <div class="person-info panel">
+      <div class="person-info panel" v-if="user">
         <div class="header">个人信息</div>
-        <div class="person-info-panel">123</div>
+        <div class="person-info-panel">
+          <img :src="user.data.avatar_url" alt="用户头像" />
+          <span class="user-name">{{ user.data.loginname }}</span>
+          <div class="point">积分:{{ user.data.score }}</div>
+          <div class="regist-time">
+            注册时间:{{ registTime(user.data.create_at) }}
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -140,18 +147,30 @@ export default {
 .home-page a {
   color: #778087;
 }
-#user-loginName {
-  vertical-align: top;
-  color: #778087;
-  padding-left: 5px;
-}
-#regist-time {
+.home-page .point,
+.github-location {
   color: #ababab;
   font-size: 14px;
+  margin-top: 10px;
 }
+
+.home-page .regist-time {
+  display: inline-block;
+  margin-top: 10px;
+}
+
 .user-info {
+  position: relative;
   padding: 10px;
   border-top: 1px solid #e5e5e5;
+}
+
+#user-loginName {
+  position: absolute;
+  top: 20px;
+  left: 70px;
+  color: #778087;
+  padding-left: 5px;
 }
 
 /* 用户最近创建话题 */
@@ -193,7 +212,8 @@ export default {
   text-overflow: ellipsis;
 }
 
-.recent-createTopics a,.recent-joinTopics a{
+.recent-createTopics a,
+.recent-joinTopics a {
   color: #333;
 }
 
@@ -203,4 +223,27 @@ export default {
   width: 25%;
   margin-left: 30px;
 }
+
+.side-bar .person-info-panel {
+  border-top: 1px solid #e5e5e5;
+  position: relative;
+  padding: 10px;
+}
+
+.side-bar .person-info-panel img {
+  width: 48px;
+  height: 48px;
+}
+
+.side-bar .user-name {
+  color: #778078;
+  position: absolute;
+  top: 25px;
+  left: 70px;
+}
+
+.side-bar .point,.regist-time{
+  margin-top: 10px;
+}
+
 </style>

@@ -29,7 +29,6 @@ export default {
     getAuthorInfo(loginname) {
       getUserDetail(loginname).then((res) => {
         this.user = { ...res.data };
-        console.log("getuser", this.user);
       });
     },
   },
@@ -37,7 +36,6 @@ export default {
     // 监视父组件传过来topic的值，当父组件通过axios获取的值传到时。执行下面代码
     topic(value) {
       this.myTopic = value;
-      console.log("mytopic", this.myTopic);
       this.getAuthorInfo(this.myTopic.data.author.loginname);
     },
   },

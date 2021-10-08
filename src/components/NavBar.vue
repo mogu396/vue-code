@@ -9,8 +9,7 @@
       </div>
       <!-- 关于网站 -->
       <div class="about">
-          关于
-          <a href=""></a>
+          <a href="https://github.com/mogu396/vue-code" alt="github项目地址" title="github项目地址">关于项目</a>
       </div>
     </div>
   </div>
@@ -43,13 +42,15 @@ export default {
 /* 关于 */
 .nav-container > .about {
   float: right;
-  color: white;
   line-height: 50px;
-  cursor: pointer;
   font-weight: 200;
 }
 
-.nav-container > .about:hover {
+.nav-container > .about a{
+  color: #fff;
+}
+
+.nav-container > .about a:hover {
   color: #80bd01;
 }
 </style>
