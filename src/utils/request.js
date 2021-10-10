@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Loading } from 'element-ui'
+import { Loading, Notification } from 'element-ui'
 const request = axios.create({
     baseURL: 'https://cnodejs.org/api/v1',
     timeout: 5000 // 请求超时时间限制
@@ -22,6 +22,14 @@ request.interceptors.request.use(
     config => {
         startLoadingAnimation()
         return config
+    }, err => {
+        stopLoadingAnimation()
+        Notification({
+            title: '似乎出现了些问题',
+            message: '请检查网络或刷新网页',
+            type: 'error'
+        })
+        return Promise.reject(err)
     }
 )
 
@@ -29,6 +37,14 @@ request.interceptors.response.use(
     config => {
         stopLoadingAnimation()
         return config
+    }, err => {
+        stopLoadingAnimation()
+        Notification({
+            title: '似乎出现了些问题',
+            message: '请检查网络或刷新网页',
+            type: 'error'
+        })
+        return Promise.reject(err)
     }
 )
 

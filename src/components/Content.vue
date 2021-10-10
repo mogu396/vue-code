@@ -45,8 +45,6 @@ export default {
   props: ["contentList", "page"],
   methods: {
     listTabComputed(top, tab, good) {
-      // console.log(this);
-      // console.log(top,tab);
       if (top === true) {
         return "置顶";
       } else {

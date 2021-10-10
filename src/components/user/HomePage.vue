@@ -87,8 +87,6 @@ export default {
     getUserDetailFun(loginname) {
       getUserDetail(loginname).then((res) => {
         this.user = res.data;
-        console.log("getuser", this.user);
-        console.log(this.user.data.recent_topics);
       });
     },
     registTime(createAt) {

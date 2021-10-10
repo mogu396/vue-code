@@ -20,7 +20,7 @@
         <TopicReplies :topic="topic" />
       </div>
       <div class="author-panel">
-        <AuthorInfo :topic="topic"/>
+        <AuthorInfo :topic="topic" />
       </div>
     </div>
   </div>
@@ -58,7 +58,7 @@ export default {
       } else if (tab === "job") {
         return "招聘";
       }
-    }
+    },
   },
   computed: {
     createAt() {
@@ -69,11 +69,11 @@ export default {
     this.topicId = this.$route.params.id;
     this.getTopicContent(this.topicId);
   },
-  mounted(){
+  mounted() {
     // this.$bus.$emit('getLoginName',this.topic.data.author.loginname)
     // console.log(this.topic.data.author.loginname);
     // console.log('topic',this.topic);
-  }
+  },
 };
 </script>
 
@@ -131,7 +131,7 @@ export default {
 .markdown-text ul {
   margin: 0 0 10px 25px;
 }
-.markdown-text li{
+.markdown-text li {
   margin-left: 25px;
   margin-top: 10px;
 }
@@ -168,6 +168,14 @@ h5 {
   background-color: #e1e1e1;
   tab-size: 4;
   border-radius: 5px;
+}
+
+/* 让markdown渲染出来的内容，如果太长自动换行 */
+.markdown-text code {
+  /*元素内的空白保留，并允许换行*/
+    white-space: pre-wrap;
+    /*是否允许在单词内断句*/
+    word-wrap: break-word;
 }
 
 /* 用户面板 */
